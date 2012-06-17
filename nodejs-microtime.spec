@@ -2,7 +2,7 @@
 Summary:	Get the current time in microseconds
 Name:		nodejs-%{pkg}
 Version:	0.2.0
-Release:	1
+Release:	2
 License:	MIT
 Group:		Development/Libraries
 URL:		https://github.com/wadey/node-microtime
@@ -13,8 +13,10 @@ BuildRequires:	nodejs-devel
 BuildRequires:	rpmbuild(macros) >= 1.634
 BuildRequires:	sed >= 4.0
 Requires:	nodejs
-BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+# redefine for arch specific
+%define		nodejs_libdir	%{_libdir}/node
 
 %description
 Date.now() will only give you accuracy in milliseconds. This module
