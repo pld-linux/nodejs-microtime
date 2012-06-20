@@ -2,7 +2,7 @@
 Summary:	Get the current time in microseconds
 Name:		nodejs-%{pkg}
 Version:	0.2.0
-Release:	2
+Release:	3
 License:	MIT
 Group:		Development/Libraries
 URL:		https://github.com/wadey/node-microtime
@@ -46,6 +46,8 @@ cp -pr index.js package.json $RPM_BUILD_ROOT%{nodejs_libdir}/%{pkg}
 
 node-waf install \
 	--destdir=$RPM_BUILD_ROOT
+
+chmod a+x $RPM_BUILD_ROOT%{nodejs_libdir}/%{pkg}/microtime.node
 
 %clean
 rm -rf $RPM_BUILD_ROOT
