@@ -9,7 +9,7 @@ URL:		https://github.com/wadey/node-microtime
 Source0:	http://registry.npmjs.org/microtime/-/%{pkg}-%{version}.tgz
 # Source0-md5:	0235c2c7e670706dd9ad0d05c773706e
 BuildRequires:	nodejs-devel >= 0.8
-BuildRequires:	rpmbuild(macros) >= 1.634
+BuildRequires:	rpmbuild(macros) >= 1.657
 BuildRequires:	npm >= 1.1.5
 BuildRequires:	nodejs-gyp
 BuildRequires:	sed >= 4.0
@@ -34,7 +34,8 @@ continuously or in `ticks'.
 mv package/* .
 
 %build
-node-gyp configure build
+node-gyp configure --nodedir=/usr/src/nodejs --gyp=/usr/bin/gyp
+node-gyp build --jobs=%{?__jobs} --verbose
 
 %install
 rm -rf $RPM_BUILD_ROOT
