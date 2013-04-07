@@ -1,18 +1,20 @@
 %define		pkg	microtime
 Summary:	Get the current time in microseconds
 Name:		nodejs-%{pkg}
-Version:	0.2.0
-Release:	3
+Version:	0.3.3
+Release:	1
 License:	MIT
 Group:		Development/Libraries
 URL:		https://github.com/wadey/node-microtime
 Source0:	http://registry.npmjs.org/microtime/-/%{pkg}-%{version}.tgz
-# Source0-md5:	9bc25aebc64b0c7370727013098dd6c3
-Patch0:		library-path.patch
-BuildRequires:	nodejs-devel
+# Source0-md5:	0235c2c7e670706dd9ad0d05c773706e
+BuildRequires:	nodejs-devel >= 0.8
 BuildRequires:	rpmbuild(macros) >= 1.634
+BuildRequires:	npm >= 1.1.5
+BuildRequires:	nodejs-gyp
 BuildRequires:	sed >= 4.0
-Requires:	nodejs
+Requires:	nodejs >= 0.6
+Requires:	nodejs-bindings >= 1.0.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # redefine for arch specific
@@ -30,24 +32,15 @@ continuously or in `ticks'.
 %prep
 %setup -qc
 mv package/* .
-%patch0 -p1
-
-# make it noop for npm link
-%{__sed} -i -e 's,node-waf configure build,/bin/true,' package.json
 
 %build
-NODE_PATH=%{nodejs_libdir}/%{pkg} \
-node-waf configure build
+node-gyp configure build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{nodejs_libdir}/%{pkg}
 cp -pr index.js package.json $RPM_BUILD_ROOT%{nodejs_libdir}/%{pkg}
-
-node-waf install \
-	--destdir=$RPM_BUILD_ROOT
-
-chmod a+x $RPM_BUILD_ROOT%{nodejs_libdir}/%{pkg}/microtime.node
+install -p build/Release/microtime.node $RPM_BUILD_ROOT%{nodejs_libdir}/%{pkg}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
