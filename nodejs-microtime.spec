@@ -10,7 +10,6 @@ Source0:	http://registry.npmjs.org/microtime/-/%{pkg}-%{version}.tgz
 # Source0-md5:	0235c2c7e670706dd9ad0d05c773706e
 BuildRequires:	nodejs-devel >= 0.8
 BuildRequires:	rpmbuild(macros) >= 1.657
-BuildRequires:	npm >= 1.1.5
 BuildRequires:	nodejs-gyp
 BuildRequires:	sed >= 4.0
 Requires:	nodejs >= 0.6
