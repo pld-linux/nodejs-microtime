@@ -2,7 +2,7 @@
 Summary:	Get the current time in microseconds
 Name:		nodejs-%{pkg}
 Version:	0.3.3
-Release:	1
+Release:	2
 License:	MIT
 Group:		Development/Libraries
 URL:		https://github.com/wadey/node-microtime
@@ -40,7 +40,7 @@ node-gyp build --jobs=%{?__jobs} --verbose
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{nodejs_libdir}/%{pkg}
 cp -pr index.js package.json $RPM_BUILD_ROOT%{nodejs_libdir}/%{pkg}
-install -p build/Release/microtime.node $RPM_BUILD_ROOT%{nodejs_libdir}/%{pkg}
+install -p build/Release/%{pkg}.node $RPM_BUILD_ROOT%{nodejs_libdir}/%{pkg}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -51,4 +51,4 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{nodejs_libdir}/%{pkg}
 %{nodejs_libdir}/%{pkg}/package.json
 %{nodejs_libdir}/%{pkg}/index.js
-%attr(755,root,root) %{nodejs_libdir}/%{pkg}/microtime.node
+%attr(755,root,root) %{nodejs_libdir}/%{pkg}/%{pkg}.node
